@@ -3,9 +3,15 @@ const shoppingLists = document.querySelector(".shopping-lists");
 const input = document.querySelector("input");
 let id = 0;
 
-function onAdd(text) {
-  const list = createElm(text);
-  return list;
+function onAdd() {
+  const content = input.value;
+
+  if (content === "") {
+    input.focus();
+    return;
+  }
+
+  createElm(content);
 }
 
 function createElm(text) {
@@ -16,44 +22,27 @@ function createElm(text) {
     <i class="fas fa-trash-alt" data-id=${id}></i>
   `;
   id++;
-  shoppingLists.addEventListener("click", (event) => {
-    const id = event.target.dataset.id;
-    if (id) {
-      const toBeDeleted = document.querySelector(`li[data-id="${id}"]`);
-      toBeDeleted.remove();
-    }
-  });
-  return listItem;
-}
 
-addBtn.addEventListener("click", () => {
-  const content = input.value;
-  if (content === "") {
-    input.focus();
-    return;
-  }
-  const list = onAdd(content);
-
-  shoppingLists.appendChild(list);
-  list.scrollIntoView();
+  shoppingLists.appendChild(listItem);
+  listItem.scrollIntoView();
   input.value = "";
   input.focus();
+}
+
+shoppingLists.addEventListener("click", (event) => {
+  const id = event.target.dataset.id;
+  if (id) {
+    const toBeDeleted = document.querySelector(`li[data-id="${id}"]`);
+    toBeDeleted.remove();
+  }
+});
+
+addBtn.addEventListener("click", () => {
+  onAdd();
 });
 
 input.addEventListener("keydown", (event) => {
-  const content = input.value;
-
-  if (content === "") {
-    input.focus();
-    return;
-  }
-
   if (event.key === "Enter") {
-    const list = onAdd(content);
-
-    shoppingLists.appendChild(list);
-    list.scrollIntoView();
-    input.value = "";
-    input.focus();
+    onAdd();
   }
 });
