@@ -1,51 +1,58 @@
 const addBtn = document.querySelector(".add-icon");
-const shoppingList = document.querySelector(".shopping-list");
+const shoppingLists = document.querySelector(".shopping-lists");
 const input = document.querySelector("input");
+let id = 0;
 
-function onAdd() {
-  const content = input.value;
-
-  if (content === "") {
-    input.focus();
-    return;
-  }
-  const list = createElm(content);
+function onAdd(text) {
+  const list = createElm(text);
   return list;
 }
 
 function createElm(text) {
   const listItem = document.createElement("li");
-
-  listItem.innerText = text;
-  listItem.setAttribute("class", "lists");
-  createIcon(listItem);
+  listItem.setAttribute("class", "list-item");
+  listItem.setAttribute("data-id", `${id}`);
+  listItem.innerHTML = `${text}
+    <i class="fas fa-trash-alt" data-id=${id}></i>
+  `;
+  id++;
+  shoppingLists.addEventListener("click", (event) => {
+    const id = event.target.dataset.id;
+    if (id) {
+      const toBeDeleted = document.querySelector(`li[data-id="${id}"]`);
+      toBeDeleted.remove();
+    }
+  });
   return listItem;
 }
 
-function createIcon(list) {
-  const icon = document.createElement("i");
-  icon.setAttribute("class", "fas fa-trash-alt");
-  list.appendChild(icon);
-
-  icon.addEventListener("click", (event) => {
-    shoppingList.removeChild(event.target.parentNode);
-  });
-}
-
 addBtn.addEventListener("click", () => {
-  const list = onAdd();
+  const content = input.value;
+  if (content === "") {
+    input.focus();
+    return;
+  }
+  const list = onAdd(content);
 
-  shoppingList.appendChild(list);
+  shoppingLists.appendChild(list);
   list.scrollIntoView();
   input.value = "";
   input.focus();
 });
 
 input.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    const list = onAdd();
+  const content = input.value;
 
-    shoppingList.appendChild(list);
+  if (content === "") {
+    input.focus();
+    return;
+  }
+
+  if (event.key === "Enter") {
+    const list = onAdd(content);
+
+    shoppingLists.appendChild(list);
+    list.scrollIntoView();
     input.value = "";
     input.focus();
   }
