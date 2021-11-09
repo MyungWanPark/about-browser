@@ -1,6 +1,7 @@
 const addBtn = document.querySelector(".add-icon");
 const shoppingLists = document.querySelector(".shopping-lists");
 const input = document.querySelector("input");
+const form = document.querySelector(".new-form");
 let id = 0;
 
 function onAdd() {
@@ -37,12 +38,7 @@ shoppingLists.addEventListener("click", (event) => {
   }
 });
 
-addBtn.addEventListener("click", () => {
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
   onAdd();
-});
-
-input.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    onAdd();
-  }
 });
