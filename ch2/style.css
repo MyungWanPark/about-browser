@@ -10,35 +10,29 @@ body {
 .background {
   width: 1000px;
   height: 800px;
-  position: relative;
+  position: absolute;
 }
 
 .unit {
-  position: relative;
+  position: absolute;
 }
 
-.carrot {
-  bottom: 100px;
-  left: 50px;
-}
-
-.bug {
-  bottom: 150px;
-  left: 300px;
-}
-
-.startBtn,
+.Btn,
 .time,
-.carrot-left {
+.carrot-left,
+.winBox,
+.resumeBox,
+.loseBox {
   position: fixed;
   left: 400px;
   z-index: 1;
 }
 
-.startBtn {
+.Btn {
   cursor: pointer;
   top: 50px;
-  padding: 20px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
 }
 
@@ -59,5 +53,36 @@ body {
   color: white;
   border-radius: 50%;
   border: 2px solid black;
+  font-size: 30px;
+}
+
+.winBox,
+.resumeBox,
+.loseBox {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 500px;
+  height: 200px;
+  background-color: black;
+  opacity: 0.5;
+  color: white;
+  font-size: 40px;
+  border-radius: 10px;
+}
+
+.winBox,
+.loseBox {
+  bottom: 400px;
+}
+
+.resumeBox {
+  top: 300px;
+}
+
+.play-again,
+.resume {
   font-size: 30px;
 }
