@@ -4,12 +4,16 @@ const field = document.querySelector(".game__field");
 const gameBtn = document.querySelector(".game__button");
 const timer = document.querySelector(".game__timer");
 const score = document.querySelector(".game__score");
+const popUp = document.querySelector(".pop-up");
+const popUpMessage = document.querySelector(".pop-up__message");
+
 const fieldRect = field.getBoundingClientRect();
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
 const GAME_DURATION_SEC = 5;
 
+let intervalTimer;
 let started = false;
 
 gameBtn.addEventListener("click", () => {
@@ -21,7 +25,11 @@ gameBtn.addEventListener("click", () => {
   started = !started;
 });
 
-function stopGame() {}
+function stopGame() {
+  stopTimer();
+  hideGameBtn();
+  showPopUpWithText("Replay❓");
+}
 
 function startGame() {
   initGame();
@@ -34,13 +42,17 @@ function startTimer() {
   let time_left = GAME_DURATION_SEC;
   showRemainingTime(time_left);
 
-  const timer = setInterval(() => {
+  intervalTimer = setInterval(() => {
     if (time_left <= 0) {
-      clearInterval(timer);
+      clearInterval(intervalTimer);
       return;
     }
     showRemainingTime(--time_left);
   }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(intervalTimer);
 }
 
 function showRemainingTime(sec) {
@@ -54,10 +66,19 @@ function showTimerAndScore() {
   score.style.visibility = "visible";
 }
 
+function hideGameBtn() {
+  gameBtn.style.visibility = "hidden";
+}
+
 function showStopBtn() {
   const icon = document.querySelector(".fa-play");
   icon.classList.add("fa-stop");
   icon.classList.remove("fa-play");
+}
+
+function showPopUpWithText(text) {
+  popUp.classList.remove("pop-up__hide");
+  popUpMessage.innerText = text;
 }
 
 function randomNumber(min, max) {
