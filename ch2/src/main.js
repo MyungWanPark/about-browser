@@ -1,12 +1,11 @@
 "use strict";
 
 import Popup from "./popup.js";
+import Field from "./field.js";
 
-const field = document.querySelector(".game__field");
 const gameBtn = document.querySelector(".game__button");
 const timer = document.querySelector(".game__timer");
 const score = document.querySelector(".game__score");
-const fieldRect = field.getBoundingClientRect();
 
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
@@ -24,8 +23,26 @@ let started = false;
 let gameScore = 0;
 
 const gameFinishBanner = new Popup();
+const gameField = new Field(CARROT_COUNT, BUG_COUNT);
 
-field.addEventListener("click", onFieldClick);
+gameField.setClickListener(onFieldClick);
+
+function onFieldClick(item) {
+  console.log("Im at on FieldClick");
+  if (item === "carrot") {
+    gameScore++;
+    console.log("im here");
+    showScore(gameScore);
+
+    if (gameScore === CARROT_COUNT) {
+      finishGame(true);
+    }
+  } else if (item === "bug") {
+    finishGame(false);
+  } else {
+    return;
+  }
+}
 
 gameBtn.addEventListener("click", () => {
   if (started) {
@@ -96,24 +113,6 @@ function showTimerAndScore() {
   score.style.visibility = "visible";
 }
 
-function onFieldClick(event) {
-  const target = event.target;
-  if (target.matches(".carrot")) {
-    target.remove();
-    gameScore++;
-    showScore(gameScore);
-    playSound(carrotSound);
-
-    if (gameScore === CARROT_COUNT) {
-      finishGame(true);
-    }
-  } else if (target.matches(".bug")) {
-    finishGame(false);
-  } else {
-    return;
-  }
-}
-
 function stopSound(sound) {
   sound.pause();
 }
@@ -138,33 +137,8 @@ function showStopBtn() {
   icon.classList.remove("fa-play");
 }
 
-function randomNumber(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-function addItem(className, num, srcPath) {
-  const x1 = 0;
-  const x2 = fieldRect.width - CARROT_SIZE;
-  const y1 = 0;
-  const y2 = fieldRect.height - CARROT_SIZE;
-
-  for (let i = 0; i < num; i++) {
-    const item = document.createElement("img");
-    item.setAttribute("class", className);
-    item.setAttribute("src", srcPath);
-    item.style.position = "absolute";
-    const x = randomNumber(x1, x2);
-    const y = randomNumber(y1, y2);
-    item.style.left = `${x}px`;
-    item.style.top = `${y}px`;
-    field.appendChild(item);
-  }
-}
-
 function initGame() {
-  field.innerHTML = "";
   score.innerText = CARROT_COUNT;
   gameScore = 0;
-  addItem("carrot", CARROT_COUNT, "img/carrot.png");
-  addItem("bug", BUG_COUNT, "img/bug.png");
+  gameField.init();
 }

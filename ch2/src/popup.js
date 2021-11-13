@@ -7,7 +7,7 @@ export default class Popup {
     this.popUpRedo = document.querySelector(".fa-redo");
     this.popUpRedo.addEventListener("click", () => {
       this.onClick && this.onClick();
-      hide();
+      this.hide();
     });
   }
 
