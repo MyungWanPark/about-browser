@@ -8,6 +8,7 @@ button {
 
 body {
   text-align: center;
+  background-color: black;
 }
 
 .game {
@@ -46,6 +47,7 @@ body {
   border-radius: 10px;
   margin-top: 10px;
   visibility: hidden;
+  user-select: none;
 }
 
 .game__score {
@@ -59,6 +61,7 @@ body {
   color: white;
   margin-top: 10px;
   visibility: hidden;
+  user-select: none;
 }
 
 .game__field {
@@ -66,6 +69,17 @@ body {
   height: 60%;
   margin-top: 100px;
   position: relative;
+}
+
+/* unit */
+.carrot,
+.bug {
+  transition: transform 100ms ease-in;
+}
+
+.carrot:hover,
+.bug:hover {
+  transform: scale(1.1);
 }
 
 /* pop up */
