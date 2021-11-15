@@ -47,7 +47,6 @@ export default class Field {
     if (target.matches(".carrot")) {
       target.remove();
       sound.playCarrot();
-      console.log("this.onItemClick", this.onItemClick);
       this.onItemClick && this.onItemClick("carrot");
     } else if (target.matches(".bug")) {
       this.onItemClick && this.onItemClick("bug");
