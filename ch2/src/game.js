@@ -1,8 +1,13 @@
 import Field from "./field.js";
-import * as sound from "./sound.js";
+
+export const Reason = Object.freeze({
+  cancel: "cancel",
+  win: "win",
+  lose: "lose",
+});
 
 //Builder Pattern
-export default class GameBuilder {
+export class GameBuilder {
   carrotCount(numOfCarrot) {
     this.carrotCount = numOfCarrot;
     return this;
@@ -22,7 +27,7 @@ export default class GameBuilder {
     return new Game(
       this.carrotCount, //
       this.bugCount,
-      this.gameDuration
+      this.GameDurationSec
     );
   }
 }
@@ -38,7 +43,7 @@ class Game {
     this.gameBtn = document.querySelector(".game__button");
     this.gameBtn.addEventListener("click", () => {
       if (this.started) {
-        this.stop();
+        this.stop(Reason.cancel);
       } else {
         this.start();
       }
@@ -56,42 +61,20 @@ class Game {
     if (!this.started) {
       return;
     }
+
     if (item === "carrot") {
       this.score++;
       this.showScore(this.score);
 
       if (this.score === this.carrotCount) {
-        this.finish(true);
+        this.stop(Reason.win);
       }
     } else if (item === "bug") {
-      this.finish(false);
+      this.stop(Reason.lose);
     } else {
       return;
     }
   };
-
-  finish(win) {
-    this.started = false;
-    this.stopTimer();
-    this.onGameStop && this.onGameStop(win ? "win" : "lose");
-    sound.stopBackground();
-    if (win) {
-      sound.playWin();
-    } else {
-      sound.playBug();
-    }
-  }
-
-  stop() {
-    this.stopTimer();
-    this.hideGameBtn();
-    this.onGameStop && this.onGameStop("cancel");
-    sound.stopBackground();
-  }
-
-  setGameStopListener(onGameStop) {
-    this.onGameStop = onGameStop;
-  }
 
   start() {
     this.started = true;
@@ -102,6 +85,18 @@ class Game {
     sound.playBackGround();
   }
 
+  stop(reason) {
+    this.started = false;
+    this.stopTimer();
+    this.hideGameBtn();
+    this.onGameStop && this.onGameStop(reason);
+    sound.stopBackground();
+  }
+
+  setGameStopListener(onGameStop) {
+    this.onGameStop = onGameStop;
+  }
+
   startTimer() {
     let time_left = this.GameDurationSec;
     this.showRemainingTime(time_left);
@@ -109,7 +104,7 @@ class Game {
     this.intervalTimer = setInterval(() => {
       if (time_left <= 0) {
         clearInterval(this.intervalTimer);
-        this.finish(false);
+        this.stop(Reason.lose);
         return;
       }
       this.showRemainingTime(--time_left);
