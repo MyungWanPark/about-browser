@@ -46,4 +46,4 @@
 
 <img width="399" alt="carrot_lose-min" src="https://user-images.githubusercontent.com/56289900/144787473-1deafc87-cdd7-4a4e-ba82-765cc0f182e7.PNG">
 
-소스코드: Ch2
+소스코드: https://github.com/MyungWanPark/about-browser/tree/master/ch2
