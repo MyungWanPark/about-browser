@@ -10,7 +10,7 @@
 
 ### Home
 
-게임 시작전의 모습입니다. 
+게임 시작전의 모습입니다. 플레이 버튼을 누르면 게임이 시작됩니다. 
 
 <img width="414" alt="carrot_home-min" src="https://user-images.githubusercontent.com/56289900/144787470-c42d6222-8070-482e-811b-08afe5c50c05.PNG">
 
@@ -26,7 +26,7 @@
 
 ### Replay
 
-게임을 일시정지 할때의 모습입니다. 
+게임을 일시정지 할때의 모습입니다. 팝업창이 나타나고, 리플레이 버튼을 누르면 게임이 다시 시작됩니다.
 
 <img width="370" alt="carrot_replay-min" src="https://user-images.githubusercontent.com/56289900/144787477-cc513bcf-e97b-4e60-81c8-8ae055041955.PNG">
 
@@ -34,7 +34,7 @@
 
 ### Win
 
-제한된 시간 내에 당근을 다 뽑아 게임에서 이겼을때의 모습입니다. 
+제한된 시간 내에 당근을 다 뽑아 게임에서 이겼을때의 모습입니다. 승리의 팝업창이 나타나고, 이겼을때의 음악으로 배경음악이 바뀝니다.
 
 <img width="391" alt="carrot_win-min" src="https://user-images.githubusercontent.com/56289900/144787480-3a978b22-676a-4184-a2b1-adccf7c1eb3b.PNG">
 
@@ -42,7 +42,7 @@
 
 ### Lose
 
-제한된 시간이 초과되거나, 벌레를 클릭하였을때 게임에서 진 화면 모습입니다. 
+제한된 시간이 초과되거나, 벌레를 클릭하였을때 게임에서 진 화면 모습입니다. 패배의 팝업창이 나타나고, 졌을때의 음악으로 배경음악이 바뀝니다. 
 
 <img width="399" alt="carrot_lose-min" src="https://user-images.githubusercontent.com/56289900/144787473-1deafc87-cdd7-4a4e-ba82-765cc0f182e7.PNG">
 
